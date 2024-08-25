@@ -39,6 +39,13 @@ public:
 	UStaticMeshComponent* Mesh;
 
 protected:
+    UPROPERTY(EditInstanceOnly)
+	float Frequency;
+    UPROPERTY(EditInstanceOnly)
+	float Amplitude;
+    
+    FVector InitialLocation;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -50,6 +57,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void ShowInformation();
+	
+	UFUNCTION(BlueprintCallable)
+    void SinMovement();
 
 public:	
 	// Called every frame

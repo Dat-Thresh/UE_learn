@@ -2,6 +2,7 @@
 
 
 #include "CppBaseActor.h"
+#include "TimerManager.h"
 
 // Sets default values
 ACppBaseActor::ACppBaseActor()
@@ -17,7 +18,9 @@ ACppBaseActor::ACppBaseActor()
 void ACppBaseActor::BeginPlay()
 {
 	Super::BeginPlay();
-	//ShowInformation();
+	InitialLocation = FVector(FMath::FRandRange(10.0f, 1000.0f),
+                            FMath::FRandRange(10.0f, 1000.0f), 
+							0.0f);
 
 		
 	
@@ -35,5 +38,13 @@ void ACppBaseActor::ShowInformation() {
 	UE_LOG(LogTemp, Display, TEXT("Instance name: %s"), this->GetActorNameOrLabel().GetCharArray().GetData());
 	UE_LOG(LogTemp, Display, TEXT("EnemyNum: %d"), EnemyNum);
 	UE_LOG(LogTemp, Display, TEXT("IsAlive; %i"), isAlive);
+}
+
+void ACppBaseActor::SinMovement() {
+  float result;
+  result = FMath::Sin(Frequency * GetWorld()->GetTimeSeconds()) * Amplitude;
+  this->SetActorLocation(FVector(this->GetActorLocation().X,
+                                 this->GetActorLocation().Y,
+                                 this->GetActorLocation().Z + result));
 }
 
